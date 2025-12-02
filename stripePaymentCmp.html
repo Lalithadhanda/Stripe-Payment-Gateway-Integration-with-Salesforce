@@ -1,0 +1,70 @@
+<template>
+   <div class="slds-card">
+    <div class="slds-grid slds-wrap">
+        <div class="slds-size_12-of-12">
+            <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                <h1 class="slds-text-heading_medium slds-text-title_bold">Products for Payment</h1>
+            </div>
+        </div>
+    </div>
+    
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th scope="col">
+                    <div class="slds-truncate" title="Name">Name</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Product Code">Product Code</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Quantity">Quantity</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Total Price">Total Price (USD)</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <template if:true={records}>
+                <template for:each={records} for:item="rec">
+                    <tr key={rec.Id}>
+                        <td data-label="Name">
+                            <div class="slds-truncate">{rec.Name}</div>
+                        </td>
+                        <td data-label="Product Code">
+                            <div class="slds-truncate">{rec.ProductCode}</div>
+                        </td>
+                        <td data-label="Quantity">
+                            <div class="slds-truncate">{rec.Quantity}</div>
+                        </td>
+                        <td data-label="Total Price">
+                            <div class="slds-truncate">{rec.TotalPrice}</div>
+                        </td>
+                    </tr>
+                </template>
+            </template>
+        </tbody>
+    </table>
+    
+    <div class="slds-m-around_medium slds-text-align_center">
+        <lightning-button 
+            variant="brand" 
+            label={totalPrice} 
+            title="Process Payment" 
+            onclick={handlePay}
+            disabled={isDisabled}
+            class="slds-m-top_medium">
+        </lightning-button>
+        
+        <template if:true={isProcess}>
+            <div class="slds-m-top_medium">
+                <lightning-spinner 
+                    alternative-text="Processing payment..." 
+                    size="medium">
+                </lightning-spinner>
+            </div>
+        </template>
+    </div>
+   </div>
+</template>
